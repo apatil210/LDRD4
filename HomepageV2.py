@@ -474,7 +474,7 @@ st.markdown(
         <h2 class="section-title">Data Resources</h2>
         <p class="resource-intro">Access the core datasets and coverage views that support the analytical framework.</p>
         <p class="resource-intro">
-            <a href="https://raw.githubusercontent.com/apatil210/LDRD4/main/DatasetJune25.xlsx" target="_blank" rel="noopener noreferrer">
+            <a href="https://raw.githubusercontent.com/apatil210/LDRD4/main/Energy Demand in US Industry 2022.xlsx" target="_blank" rel="noopener noreferrer">
                 Click here to download spreasheet for the 2022 manufacuring energy data
             </a>
         </p>
