@@ -448,7 +448,7 @@ st.markdown(
         <div class="hero-grid">
             <div class="hero-main">
                 <div class="kicker">Research platform</div>
-                <h1 class="hero-title">US Manufacturing Energy 2022</h1>
+                <h1 class="hero-title">2022 U.S. Manufacturing Energy Demand Mapped to the Unit Operation Level</h1>
             </div>
         </div>
     </section>
