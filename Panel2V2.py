@@ -412,7 +412,7 @@ def build_bar_chart(df: pd.DataFrame):
 
 def build_annual_energy_donut(fact_sheet: dict):
     donut_df = pd.DataFrame({
-        "Energy Type": ["Annual Electricity", "Annual Fuels", "Annual Steam"],
+        "Energy Type": ["Electricity", "Fuels", "Steam"],
         "Value": [
             fact_sheet["Annual Electricity"],
             fact_sheet["Annual Fuels"],
