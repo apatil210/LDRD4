@@ -151,7 +151,7 @@ st.markdown(f"""
 """, unsafe_allow_html=True)
 
 breakdown_df = pd.DataFrame({
-    "Type": ["Annual Fuels", "Annual Steam", "Annual Electricity"],
+    "Type": ["Fuels", "Steam", "Electricity"],
     "Value": [total_fuels, total_steam, total_electricity],
 })
 breakdown_df = breakdown_df[breakdown_df["Value"] > 0].copy()
