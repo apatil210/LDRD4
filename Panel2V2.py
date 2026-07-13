@@ -505,7 +505,7 @@ def build_temperature_donut(fact_sheet: dict):
 # ----------------------------
 # App UI
 # ----------------------------
-st.title("US Manufacturing Energy 2022 Classification: Unit Operations")
+st.title("2022 U.S. Manufacturing Energy Consumption by Unit Operation and Energy Source")
 
 try:
     df = load_excel_data(DATA_URL)
@@ -514,7 +514,7 @@ try:
     left_col, right_col = st.columns([1.6, 1.1], gap="large")
 
     with left_col:
-        st.subheader("Percent Annual Energy by Unit Operation Classification")
+        st.subheader("2022 Energy Use Breakdown Representing Two Thirds of the Manufacturing Sector, by Unit Operation (%)")
         st.plotly_chart(
             build_bar_chart(bar_df),
             use_container_width=False,
