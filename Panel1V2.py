@@ -429,7 +429,7 @@ def build_fact_sheet(df: pd.DataFrame, selected_process: str):
     }
 
 
-st.title("US Manufacturing Energy 2022 Classification: Industrial Process")
+st.title("2022 U.S. Manufacturing Energy Consumption by Industrial Process")
 
 try:
     df = load_excel(DATA_URL)
