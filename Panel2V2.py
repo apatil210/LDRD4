@@ -341,7 +341,7 @@ def build_fact_sheet(df: pd.DataFrame, selected_l2: str):
             residence_time_col,
         ]
     ].rename(columns={
-        l3_col: "List of Industry Application",
+        l3_col: "Industry Application",
         description_col: "Description",
         naics_col: "NAICS Code",
         sec_elec_col: "SEC Electricity (GJ/t)",
