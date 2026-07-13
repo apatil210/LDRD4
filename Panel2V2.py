@@ -524,7 +524,7 @@ try:
 
     with right_col:
         selected_l2 = st.selectbox(
-            "Select a unit operation (Level 2 classification) to generate a fact sheet",
+            "Select a unit operation to view its energy use breakdown",
             bar_df["Unit operation (Level 2 classification)"].tolist()
         )
 
