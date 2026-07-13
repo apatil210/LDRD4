@@ -9,14 +9,14 @@ st.set_page_config(
 contributors = [
     {
         "name": "Akash Patil",
-        "profile": "https://energyanalysis.lbl.gov/people/akash-kailas-patil"
+        "profile": "https://energyanalysis.lbl.gov/people/akash-kailas-patil",
         "title": "Postdoctoral Researcher, Energy Analysis Division",
         "email": "apatil2@lbl.gov",
         "photo": "https://raw.githubusercontent.com/apatil210/LDRD4/main/Akashpic2.jpg",
     },
     {
         "name": "Jibran Zuberi",
-        "profile": "https://energyanalysis.lbl.gov/people/m-jibran-zuberi",
+        "profile": "https://eta.lbl.gov/people/jibran-zuberi",
         "title": "Energy/Environmental Policy Research Scientist/Engineer, Energy Analysis Division",
         "email": "mjszuberi@lbl.gov",
         "photo": "https://raw.githubusercontent.com/apatil210/LDRD4/main/Jibran.jpg",
@@ -346,7 +346,7 @@ st.markdown(
         background-color: #dfe8ea;
         background-repeat: no-repeat;
         background-position: center center;
-        background-size: 100% 100%;
+        background-size: cover;
     }
 
     .person-body {
@@ -357,6 +357,16 @@ st.markdown(
         font: 800 1.02rem/1.2 'Libre Franklin', sans-serif;
         color: var(--lbl-blue);
         margin: 0 0 0.45rem 0;
+    }
+
+    .person-name a {
+        color: var(--lbl-blue);
+        text-decoration: none;
+    }
+
+    .person-name a:hover {
+        color: var(--lbl-teal);
+        text-decoration: underline;
     }
 
     .person-title {
@@ -478,8 +488,8 @@ st.markdown(
         <h2 class="section-title">Data Resources</h2>
         <p class="resource-intro">Access the core datasets and coverage views that support the analytical framework.</p>
         <p class="resource-intro">
-            <a href="https://raw.githubusercontent.com/apatil210/LDRD4/main/Energy Demand in US Industry 2022.xlsx" target="_blank" rel="noopener noreferrer">
-                Click here to download spreasheet for the 2022 manufacuring energy data
+            <a href="https://raw.githubusercontent.com/apatil210/LDRD4/main/Energy%20Demand%20in%20US%20Industry%202022.xlsx" target="_blank" rel="noopener noreferrer">
+                Click here to download the spreadsheet for the 2022 manufacturing energy data
             </a>
         </p>
     </section>
