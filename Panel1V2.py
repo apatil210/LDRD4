@@ -452,7 +452,7 @@ try:
 
     with right_col:
         selected_process = st.selectbox(
-            "Select an industrial process to generate a fact sheet",
+            "Select an industrial process to view its energy demand breakdown",
             bar_df["Industrial process"].tolist()
         )
 
