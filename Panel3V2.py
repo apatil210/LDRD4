@@ -112,7 +112,7 @@ required = {
 
 missing = [k for k, v in required.items() if v is None]
 
-st.title("US Manufacturing Energy 2022 Classification: NAICS Classification")
+st.title("2022 U.S. Manufacturing Energy Consumption by NAICS Classification")
 
 if missing:
     st.error("Missing required columns: " + ", ".join(missing))
