@@ -11,25 +11,25 @@ contributors = [
         "name": "Akash Patil",
         "title": "Postdoctoral Researcher, Energy Analysis Division",
         "email": "apatil2@lbl.gov",
-        "photo": "https://raw.githubusercontent.com/apatil210/LDRD3/main/Akashpic2.jpg",
+        "photo": "https://raw.githubusercontent.com/apatil210/LDRD4/main/Akashpic2.jpg",
     },
     {
         "name": "Jibran Zuberi",
         "title": "Energy/Environmental Policy Research Scientist/Engineer, Energy Analysis Division",
         "email": "mjszuberi@lbl.gov",
-        "photo": "https://raw.githubusercontent.com/apatil210/LDRD3/main/Jibran.jpg",
+        "photo": "https://raw.githubusercontent.com/apatil210/LDRD4/main/Jibran.jpg",
     },
     {
         "name": "Prakash Rao",
         "title": "Head · Building & Industrial Applications Department",
         "email": "prao@lbl.gov",
-        "photo": "https://raw.githubusercontent.com/apatil210/LDRD3/main/Prakash.jpg",
+        "photo": "https://raw.githubusercontent.com/apatil210/LDRD4/main/Prakash.jpg",
     },
     {
         "name": "Unique Karki",
         "title": "Technology Researcher II · Building & Industrial Energy Systems Division",
         "email": "ukarki@lbl.gov",
-        "photo": "https://raw.githubusercontent.com/apatil210/LDRD3/main/Unique.jpg",
+        "photo": "https://raw.githubusercontent.com/apatil210/LDRD4/main/Unique.jpg",
     },
 ]
 
@@ -474,7 +474,7 @@ st.markdown(
         <h2 class="section-title">Data Resources</h2>
         <p class="resource-intro">Access the core datasets and coverage views that support the analytical framework.</p>
         <p class="resource-intro">
-            <a href="https://raw.githubusercontent.com/apatil210/LDRD3/main/DatasetJune25.xlsx" target="_blank" rel="noopener noreferrer">
+            <a href="https://raw.githubusercontent.com/apatil210/LDRD4/main/DatasetJune25.xlsx" target="_blank" rel="noopener noreferrer">
                 Click here to download spreasheet for the 2022 manufacuring energy data
             </a>
         </p>
@@ -491,21 +491,21 @@ cards = [
         "Industry data",
         "Process library",
         "Browse industrial process records and the supporting evidence base assembled for the project.",
-        "https://panel1py-abexmsjsqy7qiy6nwyw8rt.streamlit.app/",
+        "https://panel1v2py-c84ntaz8ryya3qefuxwux4.streamlit.app/",
     ),
     (
         col2,
         "Unit operation data",
         "Operation insights",
         "Explore mapped unit operations, their functional role in processes, and their energy-demand structure.",
-        "https://panel2py-xgt4kw7yzwxwmtykzsgfec.streamlit.app/",
+        "https://panel2v2py-f77d26ywjtutbsrsp6bihl.streamlit.app/",
     ),
     (
         col3,
         "NAICS coverage",
         "Sector representation",
         "Review how the current process dataset maps across manufacturing sectors and coverage boundaries.",
-        "https://panel3py-jrtmybizucu4xpj3ucj3sd.streamlit.app/",
+        "https://panel3v2py-xe4lhzbjsfgekryipzv6wh.streamlit.app/",
     ),
 ]
 
