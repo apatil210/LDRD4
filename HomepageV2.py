@@ -497,14 +497,14 @@ cards = [
         col2,
         "Unit operation data",
         "Operation insights",
-        "Explore mapped unit operations, their functional role in processes, and their energy-demand structure.",
+        "Explore mapped unit operations, their functional role in processes, and their energy demand.",
         "https://panel2v2py-f77d26ywjtutbsrsp6bihl.streamlit.app/",
     ),
     (
         col3,
         "NAICS coverage",
         "Sector representation",
-        "Review how the current process dataset maps across manufacturing sectors and coverage boundaries.",
+        "Review how the developed energy dataset maps across manufacturing sectors classified by NAICS codes.",
         "https://panel3v2py-xe4lhzbjsfgekryipzv6wh.streamlit.app/",
     ),
 ]
