@@ -126,7 +126,7 @@ if not naics_options:
     st.stop()
 
 selected_naics = st.selectbox(
-    "Select a NAICS Level 1 sector to generate a fact sheet",
+    "Select a NAICS code to view its energy use breakdown",
     naics_options,
     index=0,
 )
