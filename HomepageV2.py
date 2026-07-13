@@ -8,28 +8,29 @@ st.set_page_config(
 
 contributors = [
     {
-        "name": 
-        <a href="https://energyanalysis.lbl.gov/people/akash-kailas-patil" target="_blank" rel="noopener noreferrer">
-        "Akash Patil"
-            </a>,
+        "name": "Akash Patil",
+        "profile": "https://energyanalysis.lbl.gov/people/akash-kailas-patil"
         "title": "Postdoctoral Researcher, Energy Analysis Division",
         "email": "apatil2@lbl.gov",
         "photo": "https://raw.githubusercontent.com/apatil210/LDRD4/main/Akashpic2.jpg",
     },
     {
         "name": "Jibran Zuberi",
+        "profile": "https://energyanalysis.lbl.gov/people/m-jibran-zuberi",
         "title": "Energy/Environmental Policy Research Scientist/Engineer, Energy Analysis Division",
         "email": "mjszuberi@lbl.gov",
         "photo": "https://raw.githubusercontent.com/apatil210/LDRD4/main/Jibran.jpg",
     },
     {
         "name": "Prakash Rao",
+        "profile": "https://eta-publications.lbl.gov/people/prakash-rao",
         "title": "Head · Building & Industrial Applications Department",
         "email": "prao@lbl.gov",
         "photo": "https://raw.githubusercontent.com/apatil210/LDRD4/main/Prakash.jpg",
     },
     {
         "name": "Unique Karki",
+        "profile": "https://eta.lbl.gov/people/unique-karki",
         "title": "Technology Researcher II · Building & Industrial Energy Systems Division",
         "email": "ukarki@lbl.gov",
         "photo": "https://raw.githubusercontent.com/apatil210/LDRD4/main/Unique.jpg",
@@ -537,7 +538,9 @@ cards_html = "".join(
             <div class="person-photo-frame" role="img" aria-label="Portrait of {c["name"]}" style="background-image: url('{c["photo"]}');"></div>
         </div>
         <div class="person-body">
-            <h3 class="person-name">{c["name"]}</h3>
+            <h3 class="person-name">
+                <a href="{c["profile"]}" target="_blank" rel="noopener noreferrer">{c["name"]}</a>
+            </h3>
             <p class="person-title">{c["title"]}</p>
             <p class="person-email">✉ {c["email"]}</p>
         </div>
