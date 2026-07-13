@@ -531,7 +531,7 @@ try:
         fact_sheet = build_fact_sheet(df, selected_l2)
 
         if fact_sheet is not None:
-            st.subheader("Total Annual Energy Breakdown")
+            st.subheader("Annual Energy Use Breakdown")
 
             st.caption("Categorization by Energy Source")
             donut_fig = build_annual_energy_donut(fact_sheet)
