@@ -438,7 +438,7 @@ try:
     left_col, right_col = st.columns([1.6, 1.1], gap="large")
 
     with left_col:
-        st.subheader("Percent Annual Energy by Industrial Process")
+        st.subheader("Annual Energy Consumption by Industrial Process (%)")
 
         st.plotly_chart(
                 build_bar_chart(bar_df),
