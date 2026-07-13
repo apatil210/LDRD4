@@ -131,7 +131,7 @@ def build_bar_chart(df: pd.DataFrame):
         plot_bgcolor=PLOT_BG,
         margin=dict(t=60, l=280, r=120, b=20),
         xaxis_title="Percent Annual Energy Demand in 2022 (%)",
-        yaxis_title="Industrial Process",
+        yaxis_title="",
         font=dict(
             family="Arial, sans-serif",
             color=TEXT_COLOR,
