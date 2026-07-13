@@ -346,7 +346,7 @@ def build_fact_sheet(df: pd.DataFrame, selected_l2: str):
         naics_col: "NAICS Code",
         sec_elec_col: "SEC Electricity (GJ/t)",
         sec_fuels_col: "SEC Fuels (GJ/t)",
-        sec_steam_col: "SEC Steam (GJ/t)",
+        sec_steam_col: "SEC Fuels or Electricity for Steam or Steam from CHP (GJ/t)",
         efficiency_col: "Efficiency (%)",
         process_temp_col: "Process temperature (°C)",
         process_temp_web_col: "Process Temperature for Webpage (°C)",
