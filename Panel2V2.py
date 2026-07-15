@@ -517,7 +517,7 @@ try:
     with left_col:
         st.subheader("2022 Energy Use Breakdown Representing Two Thirds of the Manufacturing Sector, by Unit Operation (%)")
         st.plotly_chart(
-            build_top10_treemap(overall_df, "Top 10 Total Energy"),
+            build_top10_treemap(overall_df, "Top 10 Categories Within Total Energy"),
             use_container_width=True,
             theme=None,
             config={"displayModeBar": False, "scrollZoom": False}
@@ -525,7 +525,7 @@ try:
 
         st.subheader("2022 Electricity Use Breakdown Representing Two Thirds of the Manufacturing Sector, by Unit Operation (%)")
         st.plotly_chart(
-            build_top10_treemap(electricity_df, "Top 10 Electricity"),
+            build_top10_treemap(electricity_df, "Top 10 Categories Within Electricity"),
             use_container_width=True,
             theme=None,
             config={"displayModeBar": False, "scrollZoom": False}
@@ -533,7 +533,7 @@ try:
 
         st.subheader("2022 Fuel Energy Use (excluding Steam) Breakdown Representing Two Thirds of the Manufacturing Sector, by Unit Operation (%)")
         st.plotly_chart(
-            build_top10_treemap(fuels_df, "Top 10 Fuels"),
+            build_top10_treemap(fuels_df, "Top 10 Categories Within Fuels"),
             use_container_width=True,
             theme=None,
             config={"displayModeBar": False, "scrollZoom": False}
