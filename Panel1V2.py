@@ -400,8 +400,8 @@ def build_fact_sheet(df: pd.DataFrame, selected_process: str):
 
     detail_df = pd.DataFrame({
         "Unit Operations": selected_df[unit_ops_col],
-        "SEC Total (GJ/t)": selected_df[sec_total_col],
-        # "SEC from Column U (GJ/t)": selected_df.iloc[:, temp_sec_idx],
+        # "SEC Total (GJ/t)": selected_df[sec_total_col],
+        "SEC Total (GJ/t)": selected_df.iloc[:, temp_sec_idx],
         "SEC Electricity (GJ/t)": selected_df.iloc[:, elec_idx],
         "SEC Fuels (GJ/t)": selected_df.iloc[:, fuel_idx],
         "SEC Steam (GJ/t)": selected_df.iloc[:, steam_idx],
