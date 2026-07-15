@@ -45,6 +45,9 @@ TEMP_COLOR_MAP = {
 COL_L2 = "Unit operation (Level 2 classification)"
 COL_L3 = "Industrial process"
 COL_PERCENT_ENERGY = "Percent Annual energy demand in 2022"
+COL_PERCENT_ELECTRICITY = "Percent Annual electricity demand in 2022"
+COL_PERCENT_FUELS = "Perent Annual fuels demand in 2022"
+COL_PERCENT_STEAM = "Percent Annual fuels or electricity for steam or steam from CHP demand in 2022"
 
 COL_ANNUAL_PRODUCTION = "Annual production in 2022\n(based on FU)"
 
@@ -193,34 +196,35 @@ def load_excel_data(url: str) -> pd.DataFrame:
 # ----------------------------
 # Data preparation
 # ----------------------------
-def prepare_bar_data(df: pd.DataFrame) -> pd.DataFrame:
+def prepare_treemap_data(df: pd.DataFrame, metric_col_name: str, top_n: int = 10) -> pd.DataFrame:
     l2_col = find_matching_column(df, COL_L2)
-    pct_col = find_matching_column(df, COL_PERCENT_ENERGY)
+    metric_col = find_matching_column(df, metric_col_name)
 
-    working_df = df[[l2_col, pct_col]].copy()
+    working_df = df[[l2_col, metric_col]].copy()
     working_df[l2_col] = clean_category(working_df[l2_col])
-    working_df[pct_col] = to_numeric_safe(working_df[pct_col]).fillna(0)
+    working_df[metric_col] = to_numeric_safe(working_df[metric_col]).fillna(0)
 
     grouped_df = (
-        working_df.groupby(l2_col, as_index=False)[pct_col]
+        working_df.groupby(l2_col, as_index=False)[metric_col]
         .sum()
-        .sort_values(pct_col, ascending=False)
+        .sort_values(metric_col, ascending=False)
         .reset_index(drop=True)
     )
 
-    grouped_df = grouped_df[grouped_df[pct_col] != 0].copy()
+    grouped_df = grouped_df[grouped_df[metric_col] != 0].copy()
 
-    max_abs_val = grouped_df[pct_col].abs().max()
+    max_abs_val = grouped_df[metric_col].abs().max()
     if pd.notna(max_abs_val) and max_abs_val <= 1:
-        grouped_df["Display Percent"] = grouped_df[pct_col] * 100
+        grouped_df["Display Percent"] = grouped_df[metric_col] * 100
     else:
-        grouped_df["Display Percent"] = grouped_df[pct_col]
+        grouped_df["Display Percent"] = grouped_df[metric_col]
 
     grouped_df = grouped_df.rename(columns={
         l2_col: "Unit operation (Level 2 classification)",
-        pct_col: "Raw Percent Annual energy demand in 2022"
+        metric_col: "Raw Metric"
     })
 
+    grouped_df = grouped_df.nlargest(top_n, "Display Percent").reset_index(drop=True)
     grouped_df["Rank"] = range(1, len(grouped_df) + 1)
 
     return grouped_df
@@ -375,37 +379,29 @@ def build_fact_sheet(df: pd.DataFrame, selected_l2: str):
 # ----------------------------
 # Chart builders
 # ----------------------------
-def build_bar_chart(df: pd.DataFrame):
-    fig = px.bar(
+def build_top10_treemap(df: pd.DataFrame, title_root: str):
+    fig = px.treemap(
         df,
-        x="Display Percent",
-        y="Unit operation (Level 2 classification)",
-        orientation="h",
-        text="Display Percent",
-        color_discrete_sequence=[BAR_COLOR]
+        path=[px.Constant(title_root), "Unit operation (Level 2 classification)"],
+        values="Display Percent",
+        color="Display Percent",
+        color_continuous_scale=["#D9EFEF", "#0B6E74"]
     )
 
     fig.update_traces(
-        texttemplate="%{text:.1f}%",
-        textposition="outside",
-        cliponaxis=False,
-        hovertemplate="<b>%{y}</b><br>Summed percent annual energy: %{x:.4f}%<extra></extra>",
-        marker=dict(line=dict(color="#FCFCFA", width=1.2))
+        texttemplate="<b>%{label}</b><br>%{value:.1f}%",
+        hovertemplate="<b>%{label}</b><br>Summed demand: %{value:.2f}%<extra></extra>",
+        root_color="rgba(0,0,0,0)"
     )
 
     fig.update_layout(
-        width=1500,
-        height=max(700, 34 * len(df)),
+        height=520,
         paper_bgcolor=PAPER_BG,
         plot_bgcolor=PLOT_BG,
-        margin=dict(t=60, l=340, r=80, b=30),
-        xaxis_title="Percent Annual Energy Demand in 2022 (%)",
-        yaxis_title="Unit Operation Classification",
-        font=dict(family="Arial, sans-serif", color=TEXT_COLOR, size=14)
+        margin=dict(t=40, l=20, r=20, b=20),
+        font=dict(family="Arial, sans-serif", color=TEXT_COLOR, size=13),
+        coloraxis_showscale=False
     )
-
-    fig.update_xaxes(showgrid=True, automargin=True)
-    fig.update_yaxes(categoryorder="total ascending", automargin=True, ticklabelstandoff=40)
 
     return fig
 
@@ -509,15 +505,44 @@ st.title("2022 U.S. Manufacturing Energy Consumption by Unit Operation and Energ
 
 try:
     df = load_excel_data(DATA_URL)
-    bar_df = prepare_bar_data(df)
+
+    all_l2_df = prepare_treemap_data(df, COL_PERCENT_ENERGY, top_n=999)
+    overall_df = all_l2_df.nlargest(10, "Display Percent").reset_index(drop=True)
+    electricity_df = prepare_treemap_data(df, COL_PERCENT_ELECTRICITY, top_n=10)
+    fuels_df = prepare_treemap_data(df, COL_PERCENT_FUELS, top_n=10)
+    steam_df = prepare_treemap_data(df, COL_PERCENT_STEAM, top_n=10)
 
     left_col, right_col = st.columns([1.6, 1.1], gap="large")
 
     with left_col:
-        st.subheader("2022 Energy Use Breakdown Representing Two Thirds of the Manufacturing Sector, by Unit Operation (%)")
+        st.subheader("Top 10 Unit Operations by 2022 Energy Use Share")
         st.plotly_chart(
-            build_bar_chart(bar_df),
-            use_container_width=False,
+            build_top10_treemap(overall_df, "Top 10 Total Energy"),
+            use_container_width=True,
+            theme=None,
+            config={"displayModeBar": False, "scrollZoom": False}
+        )
+
+        st.subheader("Top 10 Unit Operations by Annual Electricity Demand")
+        st.plotly_chart(
+            build_top10_treemap(electricity_df, "Top 10 Electricity"),
+            use_container_width=True,
+            theme=None,
+            config={"displayModeBar": False, "scrollZoom": False}
+        )
+
+        st.subheader("Top 10 Unit Operations by Annual Fuels Demand")
+        st.plotly_chart(
+            build_top10_treemap(fuels_df, "Top 10 Fuels"),
+            use_container_width=True,
+            theme=None,
+            config={"displayModeBar": False, "scrollZoom": False}
+        )
+
+        st.subheader("Top 10 Unit Operations by Annual Steam / CHP Demand")
+        st.plotly_chart(
+            build_top10_treemap(steam_df, "Top 10 Steam / CHP"),
+            use_container_width=True,
             theme=None,
             config={"displayModeBar": False, "scrollZoom": False}
         )
@@ -525,7 +550,7 @@ try:
     with right_col:
         selected_l2 = st.selectbox(
             "Select a unit operation to view its energy use breakdown",
-            bar_df["Unit operation (Level 2 classification)"].tolist()
+            all_l2_df["Unit operation (Level 2 classification)"].tolist()
         )
 
         fact_sheet = build_fact_sheet(df, selected_l2)
@@ -563,8 +588,8 @@ try:
 
             st.dataframe(
                 fact_sheet["Details"].drop(columns=[
-                    "Process Temperature for Webpage (°C)", 
-                    "Annual Energy from AU", 
+                    "Process Temperature for Webpage (°C)",
+                    "Annual Energy from AU",
                     "Efficiency (%)",
                     "Inlet temperature (°C)",
                     "Outlet temperature (°C)",
