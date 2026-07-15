@@ -180,7 +180,7 @@ def build_bar_chart(df: pd.DataFrame):
 
 def build_sec_donut(fact_sheet: dict):
     donut_df = pd.DataFrame({
-        "SEC Type": ["SEC Electricity", "SEC Fuels", "SEC Steam"],
+        "SEC Type": ["Electricity", "Fuels", "Steam"],
         "Value": [
             fact_sheet["SEC Electricity"],
             fact_sheet["SEC Fuels"],
