@@ -562,7 +562,15 @@ try:
                 )
 
             st.dataframe(
-                fact_sheet["Details"].drop(columns=["Process Temperature for Webpage (°C)", "Annual Energy from AU"]),
+                fact_sheet["Details"].drop(columns=[
+                    "Process Temperature for Webpage (°C)", 
+                    "Annual Energy from AU", 
+                    "Efficiency (%)",
+                    "Inlet temperature (°C)",
+                    "Outlet temperature (°C)",
+                    "Inlet pressure (bar)",
+                    "Outlet pressure (bar)",
+                    "Residence time (sec)"], errors="ignore"),
                 use_container_width=True,
                 hide_index=True
             )
