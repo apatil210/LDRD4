@@ -588,7 +588,6 @@ try:
 
             st.dataframe(
                 fact_sheet["Details"].drop(columns=[
-                    "Process Temperature for Webpage (°C)",
                     "Annual Energy from AU",
                     "Efficiency (%)",
                     "Inlet temperature (°C)",
