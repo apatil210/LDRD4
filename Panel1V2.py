@@ -454,10 +454,10 @@ try:
         selected_process = st.selectbox(
     "Select an industrial process to view its energy demand breakdown. "
     "Note that the production units for some processes differ from tonnes of product and are defined as follows: "
-    "Barrels of crude for Petroleum Refining (324110), Bushels of corn for Wet Corn Milling (311221), "
-    "Tonnes of raw milk input for Fluid Milk Manufacturing (3115), Tonnes of soybeans input for Soybean Processing (311224), "
-    "Barrels of beer for Beer Processing (312120), Tonnes of scrap input for Secondary Aluminum (331313), "
-    "Cubic meters of spirits for Distillery (312140) and Vehicle units for Automotive Assembly (336110)",
+    "barrels of crude for Petroleum Refining (324110), bushels of corn for Wet Corn Milling (311221), "
+    "million tonnes of raw milk input for Fluid Milk Manufacturing (3115), million tonnes of soybeans input for Soybean Processing (311224), "
+    "barrels of beer for Beer Processing (312120), million tonnes of scrap input for Secondary Aluminum (331313), "
+    "cubic meters of spirits for Distillery (312140) and vehicle units for Automotive Assembly (336110)",
     bar_df["Industrial process"].tolist()
 )
 
@@ -465,7 +465,7 @@ try:
 
         if fact_sheet:
             c1, c2, c3 = st.columns(3)
-            c1.metric("Annual Production (tonne/yr)", f"{fact_sheet['Annual Production']:.2f}")
+            c1.metric("Annual Production (million-tonne/yr)", f"{fact_sheet['Annual Production']:.2f}")
             c2.metric("Annual Energy (PJ/yr)", f"{fact_sheet['Annual Energy']:.2f}")
             c3.metric("NAICS Code", f"{fact_sheet['NAICS Code']}")
 
