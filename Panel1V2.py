@@ -452,11 +452,14 @@ try:
 
     with right_col:
         selected_process = st.selectbox(
-            "Select an industrial process to view its energy demand breakdown. Note that the production units for some processes differ from tonnes of product and are defined as follows: 
-            Barrels of crude for Petroleum Refining (324110), Bushels of corn for Wet Corn Milling (311221), Tonnes of raw milk input for Fluid Milk Manufacturing (3115), 
-            Tonnes of soybeans input  for Soybean Processing (311224), Barrels of beer for Beer Processing (312120), Tonnes of scrap input for Secondary Aluminum (331313), Cubic meters of spirits for Distillery (312140) and Vehicle units for Automotive Assembly (336110)",
-            bar_df["Industrial process"].tolist()
-        )
+    "Select an industrial process to view its energy demand breakdown. "
+    "Note that the production units for some processes differ from tonnes of product and are defined as follows: "
+    "Barrels of crude for Petroleum Refining (324110), Bushels of corn for Wet Corn Milling (311221), "
+    "Tonnes of raw milk input for Fluid Milk Manufacturing (3115), Tonnes of soybeans input for Soybean Processing (311224), "
+    "Barrels of beer for Beer Processing (312120), Tonnes of scrap input for Secondary Aluminum (331313), "
+    "Cubic meters of spirits for Distillery (312140) and Vehicle units for Automotive Assembly (336110)",
+    bar_df["Industrial process"].tolist()
+)
 
         fact_sheet = build_fact_sheet(df, selected_process)
 
