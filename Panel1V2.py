@@ -27,10 +27,12 @@ SEC_COLOR_MAP = {
 }
 
 TEMP_COLOR_MAP = {
-    "<100 °C": "#54A24B",
+    "<20 °C": "#54A24B",
+    "20-100 °C": "#B5CF6B",
     "100-200 °C": "#EECA3B",
     "200-400 °C": "#F58518",
-    ">400 °C": "#B279A2",
+    "400-600 °C": "#E45756",
+    ">=600 °C": "#B279A2",
 }
 
 
@@ -376,9 +378,16 @@ def build_fact_sheet(df: pd.DataFrame, selected_process: str):
 
     temp_sec_df["Temperature Range"] = pd.cut(
         temp_sec_df["Temp for Donut"],
-        bins=[float("-inf"), 100, 200, 400, float("inf")],
-        labels=["<100 °C", "100-200 °C", "200-400 °C", ">400 °C"],
-        right=False
+        bins=[float("-inf"), 20, 100, 200, 400, 600, float("inf")],
+        labels=[
+        "<20 °C",
+        "20-100 °C",
+        "100-200 °C",
+        "200-400 °C",
+        "400-600 °C",
+        ">=600 °C"
+    ],
+    right=False
     )
 
     temp_breakdown = (
@@ -388,7 +397,14 @@ def build_fact_sheet(df: pd.DataFrame, selected_process: str):
     )
 
     all_ranges = pd.DataFrame({
-        "Temperature Range": ["<100 °C", "100-200 °C", "200-400 °C", ">400 °C"]
+       "Temperature Range": [
+        "<20 °C",
+        "20-100 °C",
+        "100-200 °C",
+        "200-400 °C",
+        "400-600 °C",
+        ">=600 °C"
+    ]
     })
 
     temp_breakdown = all_ranges.merge(
