@@ -485,7 +485,7 @@ def build_temperature_donut(fact_sheet: dict):
     fig.update_traces(
         textposition="outside",
         texttemplate="%{label}<br>%{percent}",
-        hovertemplate="<b>%{label}</b><br>Energy magnitude from AU: %{value:.3f}<br>Share: %{percent}<extra></extra>",
+        hovertemplate="<b>%{label}</b><br>Energy magnitude: %{value:.3f}<br>Share: %{percent}<extra></extra>",
         marker=dict(line=dict(color="#FFFFFF", width=2))
     )
 
