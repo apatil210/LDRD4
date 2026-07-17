@@ -361,11 +361,11 @@ with tab1:
 with tab2:
     render_overview(
         df,
-        "All NAICS Level 1 categories combined",
+        "All NAICS Categories Combined",
         show_naics_chart=False,
         show_process_chart=False,
         show_energy_chart=True,
         show_temp_chart=True,
         coverage_col=percent_energy_col,
-        coverage_label="Percent Annual energy demand in 2022",
+        coverage_label="Database Coverage",
     )
