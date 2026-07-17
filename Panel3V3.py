@@ -60,6 +60,10 @@ def fmt_pj(x):
     return f"{x:,.2f}"
 
 
+def fmt_percent(x):
+    return f"{x:.2%}" if x > 0 else "N/A"
+
+
 def style_donut(fig):
     fig.update_traces(
         domain=dict(x=[0.00, 0.72]),
@@ -100,13 +104,17 @@ def render_overview(
     show_process_chart=True,
     show_energy_chart=True,
     show_temp_chart=True,
+    coverage_col=None,
+    coverage_label="Database coverage",
 ):
     total_energy = num(data_subset[total_energy_col]).sum()
     total_electricity = num(data_subset[electricity_col]).sum()
     total_fuels = num(data_subset[fuels_col]).sum()
     total_steam = num(data_subset[steam_col]).sum()
-    percent_coverage = num(data_subset[percent_coverage_col]).sum()
-    percent_coverage_text = f"{percent_coverage:.2%}" if percent_coverage > 0 else "N/A"
+
+    coverage_source_col = coverage_col if coverage_col is not None else percent_coverage_col
+    coverage_value = num(data_subset[coverage_source_col]).sum()
+    coverage_text = fmt_percent(coverage_value)
 
     st.subheader(subtitle)
 
@@ -116,7 +124,7 @@ def render_overview(
         <div style="padding:1rem; border:1px solid #ddd; border-radius:12px;">Annual electricity<br><b>{fmt_pj(total_electricity)} PJ</b></div>
         <div style="padding:1rem; border:1px solid #ddd; border-radius:12px;">Annual fuels<br><b>{fmt_pj(total_fuels)} PJ</b></div>
         <div style="padding:1rem; border:1px solid #ddd; border-radius:12px;">Annual steam<br><b>{fmt_pj(total_steam)} PJ</b></div>
-        <div style="padding:1rem; border:1px solid #ddd; border-radius:12px;">Database coverage<br><b>{percent_coverage_text}</b></div>
+        <div style="padding:1rem; border:1px solid #ddd; border-radius:12px;">{coverage_label}<br><b>{coverage_text}</b></div>
     </div>
     """, unsafe_allow_html=True)
 
@@ -346,6 +354,8 @@ with tab1:
         show_process_chart=True,
         show_energy_chart=True,
         show_temp_chart=True,
+        coverage_col=percent_coverage_col,
+        coverage_label="Database coverage",
     )
 
 with tab2:
@@ -356,4 +366,6 @@ with tab2:
         show_process_chart=False,
         show_energy_chart=True,
         show_temp_chart=True,
+        coverage_col=percent_energy_col,
+        coverage_label="Percent Annual energy demand in 2022",
     )
