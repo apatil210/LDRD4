@@ -32,10 +32,12 @@ ENERGY_SOURCE_COLORS = {
 }
 
 TEMP_COLORS = {
-    "<100 °C": "#2A9D8F",
+    "<20 °C": "#2A9D8F",
+    "20-100 °C": "#7FBF7B",
     "100-200 °C": "#B9770E",
     "200-400 °C": "#C0392B",
-    ">400 °C": "#5B2C6F",
+    "400-600 °C": "#8E5EA2",
+    ">=600 °C": "#5B2C6F",
 }
 
 def norm(x):
@@ -185,8 +187,15 @@ temp_df = temp_df[temp_df["Annual Energy"] > 0].copy()
 
 temp_df["Temperature Range"] = pd.cut(
     temp_df["Temperature"],
-    bins=[-float("inf"), 100, 200, 400, float("inf")],
-    labels=["<100 °C", "100-200 °C", "200-400 °C", ">400 °C"],
+    bins=[-float("inf"), 20, 100, 200, 400, 600, float("inf")],
+    labels=[
+        "<20 °C",
+        "20-100 °C",
+        "100-200 °C",
+        "200-400 °C",
+        "400-600 °C",
+        ">=600 °C",
+    ],
     right=False,
 )
 
@@ -248,7 +257,17 @@ with col2:
             hole=0.62,
             color="Temperature Range",
             color_discrete_map=TEMP_COLORS,
-            title="Distribution by Process Temperature",
+            category_orders={
+        "Temperature Range": [
+            "<20 °C",
+            "20-100 °C",
+            "100-200 °C",
+            "200-400 °C",
+            "400-600 °C",
+            ">=600 °C",
+        ]
+    },
+    title="Distribution by Process Temperature",
         )
         fig = style_donut(fig)
         st.plotly_chart(fig, use_container_width=True)
