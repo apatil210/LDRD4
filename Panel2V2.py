@@ -33,10 +33,12 @@ ENERGY_COLOR_MAP = {
 }
 
 TEMP_COLOR_MAP = {
-    "<100 °C": "#72B7B2",
-    "100-200 °C": "#54A24B",
+    "<20 °C": "#72B7B2",
+    "20-100 °C": "#54A24B",
+    "100-200 °C": "#EACA3B",
     "200-400 °C": "#ECA82C",
-    ">400 °C": "#E45756",
+    "400-600 °C": "#F58518",
+    ">=600 °C": "#E45756",
 }
 
 # ----------------------------
@@ -309,9 +311,16 @@ def build_fact_sheet(df: pd.DataFrame, selected_l2: str):
     if not temp_energy_df.empty:
         temp_energy_df["Temperature Level"] = pd.cut(
             temp_energy_df["Temperature Raw"],
-            bins=[-float("inf"), 100, 200, 400, float("inf")],
-            labels=["<100 °C", "100-200 °C", "200-400 °C", ">400 °C"],
-            right=False
+            bins=[-float("inf"), 20, 100, 200, 400, 600, float("inf")],
+            labels=[
+                 "<20 °C",
+                 "20-100 °C",
+                 "100-200 °C",
+                 "200-400 °C",
+                 "400-600 °C",
+                 ">=600 °C"
+          ],
+          right=False
         )
 
         temp_breakdown_df = (
