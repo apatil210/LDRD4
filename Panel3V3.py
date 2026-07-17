@@ -93,7 +93,14 @@ def load_data():
     return df
 
 
-def render_overview(data_subset, subtitle):
+def render_overview(
+    data_subset,
+    subtitle,
+    show_naics_chart=True,
+    show_process_chart=True,
+    show_energy_chart=True,
+    show_temp_chart=True,
+):
     total_energy = num(data_subset[total_energy_col]).sum()
     total_electricity = num(data_subset[electricity_col]).sum()
     total_fuels = num(data_subset[fuels_col]).sum()
@@ -171,71 +178,113 @@ def render_overview(data_subset, subtitle):
     )
     temp_donut_df = temp_donut_df[temp_donut_df["Annual Energy"] > 0].copy()
 
-    col1, col2 = st.columns(2)
+    if show_naics_chart or show_process_chart:
+        col1, col2 = st.columns(2)
 
-    with col1:
-        if not naics_donut_df.empty:
-            fig = px.pie(
-                naics_donut_df,
-                names="NAICS Level 2",
-                values="Annual Energy",
-                hole=0.62,
-                color="NAICS Level 2",
-                color_discrete_sequence=NAICS_COLORS,
-                title="NAICS Subsectors Within",
-            )
-            fig = style_donut(fig)
-            st.plotly_chart(fig, use_container_width=True)
+        with col1:
+            if show_naics_chart and not naics_donut_df.empty:
+                fig = px.pie(
+                    naics_donut_df,
+                    names="NAICS Level 2",
+                    values="Annual Energy",
+                    hole=0.62,
+                    color="NAICS Level 2",
+                    color_discrete_sequence=NAICS_COLORS,
+                    title="NAICS Subsectors Within",
+                )
+                fig = style_donut(fig)
+                st.plotly_chart(fig, use_container_width=True)
 
-        if not process_df.empty:
-            fig = px.pie(
-                process_df,
-                names="Industrial process",
-                values="Annual Energy",
-                hole=0.62,
-                color="Industrial process",
-                color_discrete_sequence=PROCESS_COLORS,
-                title="Industrial Processes Within",
-            )
-            fig = style_donut(fig)
-            st.plotly_chart(fig, use_container_width=True)
+            if show_process_chart and not process_df.empty:
+                fig = px.pie(
+                    process_df,
+                    names="Industrial process",
+                    values="Annual Energy",
+                    hole=0.62,
+                    color="Industrial process",
+                    color_discrete_sequence=PROCESS_COLORS,
+                    title="Industrial Processes Within",
+                )
+                fig = style_donut(fig)
+                st.plotly_chart(fig, use_container_width=True)
 
-    with col2:
-        if not breakdown_df.empty:
-            fig = px.pie(
-                breakdown_df,
-                names="Type",
-                values="Value",
-                hole=0.62,
-                color="Type",
-                color_discrete_map=ENERGY_SOURCE_COLORS,
-                title="Distribution by Energy Source",
-            )
-            fig = style_donut(fig)
-            st.plotly_chart(fig, use_container_width=True)
+        with col2:
+            if show_energy_chart and not breakdown_df.empty:
+                fig = px.pie(
+                    breakdown_df,
+                    names="Type",
+                    values="Value",
+                    hole=0.62,
+                    color="Type",
+                    color_discrete_map=ENERGY_SOURCE_COLORS,
+                    title="Distribution by Energy Source",
+                )
+                fig = style_donut(fig)
+                st.plotly_chart(fig, use_container_width=True)
 
-        if not temp_donut_df.empty:
-            fig = px.pie(
-                temp_donut_df,
-                names="Temperature Range",
-                values="Annual Energy",
-                hole=0.62,
-                color="Temperature Range",
-                color_discrete_map=TEMP_COLORS,
-                category_orders={
-                    "Temperature Range": [
-                        "<20 °C",
-                        "20-100 °C",
-                        "100-200 °C",
-                        "200-400 °C",
-                        "400-600 °C",
-                        ">=600 °C",
-                    ]
-                },
-                title="Distribution by Process Temperature",
-            )
-            fig = style_donut(fig)
-            st.plotly_chart(fig, use_container_width=True)
+            if show_temp_chart and not temp_donut_df.empty:
+                fig = px.pie(
+                    temp_donut_df,
+                    names="Temperature Range",
+                    values="Annual Energy",
+                    hole=0.62,
+                    color="Temperature Range",
+                    color_discrete_map=TEMP_COLORS,
+                    category_orders={
+                        "Temperature Range": [
+                            "<20 °C",
+                            "20-100 °C",
+                            "100-200 °C",
+                            "200-400 °C",
+                            "400-600 °C",
+                            ">=600 °C",
+                        ]
+                    },
+                    title="Distribution by Process Temperature",
+                )
+                fig = style_donut(fig)
+                st.plotly_chart(fig, use_container_width=True)
+
+    else:
+        col1, col2 = st.columns(2)
+
+        with col1:
+            if show_energy_chart and not breakdown_df.empty:
+                fig = px.pie(
+                    breakdown_df,
+                    names="Type",
+                    values="Value",
+                    hole=0.62,
+                    color="Type",
+                    color_discrete_map=ENERGY_SOURCE_COLORS,
+                    title="Distribution by Energy Source",
+                )
+                fig = style_donut(fig)
+                st.plotly_chart(fig, use_container_width=True)
+
+        with col2:
+            if show_temp_chart and not temp_donut_df.empty:
+                fig = px.pie(
+                    temp_donut_df,
+                    names="Temperature Range",
+                    values="Annual Energy",
+                    hole=0.62,
+                    color="Temperature Range",
+                    color_discrete_map=TEMP_COLORS,
+                    category_orders={
+                        "Temperature Range": [
+                            "<20 °C",
+                            "20-100 °C",
+                            "100-200 °C",
+                            "200-400 °C",
+                            "400-600 °C",
+                            ">=600 °C",
+                        ]
+                    },
+                    title="Distribution by Process Temperature",
+                )
+                fig = style_donut(fig)
+                st.plotly_chart(fig, use_container_width=True)
 
 
 df = load_data()
@@ -290,7 +339,21 @@ df_filtered = df[df[naics_l1_col].astype(str) == str(selected_naics)].copy()
 tab1, tab2 = st.tabs(["Selected NAICS", "Consolidated Overview"])
 
 with tab1:
-    render_overview(df_filtered, f"Selected category: {selected_naics}")
+    render_overview(
+        df_filtered,
+        f"Selected category: {selected_naics}",
+        show_naics_chart=True,
+        show_process_chart=True,
+        show_energy_chart=True,
+        show_temp_chart=True,
+    )
 
 with tab2:
-    render_overview(df, "All NAICS Level 1 categories combined")
+    render_overview(
+        df,
+        "All NAICS Level 1 categories combined",
+        show_naics_chart=False,
+        show_process_chart=False,
+        show_energy_chart=True,
+        show_temp_chart=True,
+    )
